@@ -442,99 +442,7 @@
         document.documentElement.style.setProperty("--vh", `${vh}px`);
         document.querySelector(".main_img").style.maxHeight = document.querySelector(".main_img > img").innerHeight + 'px';
 
-        // 디데이
-        const remainTime = document.querySelector(".countdown");
-        let days = remainTime.querySelector(".days");
-        let hour = remainTime.querySelector(".hour");
-        let min = remainTime.querySelector(".min");
-        let sec = remainTime.querySelector(".sec");
-        let myDay = document.querySelector(".dday_wrap .myDay_count .myDay");
-
-        function dDay() {
-            const masTime = new Date("2024/02/03 12:00:00");
-            const todayTime = new Date();
-            
-            const diff = masTime - todayTime;
-            
-            const diffDay = Math.floor(diff / (1000*60*60*24));
-            const diffHour = Math.floor((diff / (1000*60*60)) % 24);
-            const diffMin = Math.floor((diff / (1000*60)) % 60);
-            const diffSec = Math.floor(diff / 1000 % 60);
-            
-            days.innerText = `${diffDay}`;
-            hour.innerText = `${diffHour}`;
-            min.innerText = `${diffMin}`;
-            sec.innerText = `${diffSec}`;
-            myDay.innerText = `${diffDay}`;
-        }
-
-        dDay();
-        setInterval(dDay, 1000);
-
-
-        // 이미지 슬라이드
-        const sliderContainer = document.querySelector('.gallery_container');
-        const slider = document.querySelector('.gallery_container ul');
-        const sliderItem = slider.querySelectorAll('.gallery_item');
-
-
-        let clicked = false;
-        let xAxis;
-        let x;
-
-        if(!Mobile()) {
-            sliderContainer.addEventListener('mouseup', () => {
-                sliderContainer.style.cursor = `grab`;
-            }) 
-
-            sliderContainer.addEventListener('mousedown', e => {
-                clicked = true
-                xAxis = e.offsetX - slider.offsetLeft;
-                sliderContainer.style.cursor = `grabbing`;
-            })
-
-            window.addEventListener('mouseup', () => {
-                clicked = false;
-            })
-
-            sliderContainer.addEventListener('mousemove', e => {
-                if (!clicked) return;
-                e.preventDefault();
-
-                x = e.offsetX;
-                slider.style.left = `${x - xAxis}px`;
-                slider.style.pointerEvents = 'none';
-
-                checkSize();
-            })
-        }
         
-
-        const checkSize = () => {
-            let sliderContainerOut = sliderContainer.getBoundingClientRect();
-            let sliderIn = slider.getBoundingClientRect();
-            if (parseInt(slider.style.left) > 0) {
-                slider.style.left = `0px`;
-            }else if (sliderIn.right < sliderContainerOut.right) {
-                slider.style.left = `-${sliderIn.width - sliderContainerOut.width}px`;
-            }
-
-            if( Math.abs(slider.offsetLeft) >= (slider.scrollWidth - sliderContainer.offsetWidth)) {
-                slider.style.left = `-${slider.scrollWidth - sliderContainer.offsetWidth}px`;
-            }
-        }
-
-        sliderContainer.addEventListener('touchstart', e => {
-            clicked = true;
-            xAxis = e.targetTouches[0].clientX - slider.offsetLeft;
-        },{passive: true})
-
-        sliderContainer.addEventListener('touchmove', e => {
-            if(!clicked) return;
-            x = e.targetTouches[0].clientX;
-            slider.style.left = `${x - xAxis}px`;
-            checkSize();
-        },{passive: true})
 
         //지도
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -583,21 +491,8 @@
             setTimeout(() => {copySuccess.style.display = 'none'}, 2000);
         }
 
-        //계죄번호 확인
-        let accountWrap = document.querySelector(".account_wrap");
-        let accountItem = accountWrap.querySelectorAll(".item .title");
-        accountItem.forEach(ele => ele.addEventListener("click", function(){
-            let itemArea = this.parentElement;
-            if(itemArea.classList.contains("on")){
-                accountItem.forEach(el => el.parentElement.classList.remove("on"));
-                itemArea.classList.remove("on");
-            } else {
-                accountItem.forEach(el => el.parentElement.classList.remove("on"));
-               itemArea.classList.add("on");
-            }
-        }));
+
     </script>
-    <script type="text/javascript" src="resource/js/slide.js"></script>
 </body>
 
 </html>
